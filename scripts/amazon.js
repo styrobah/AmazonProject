@@ -46,7 +46,7 @@ products.forEach((product,index) => {
                 Added
             </div>
 
-            <button class="add-to-cart-button button-primary">
+            <button class="add-to-cart-button button-primary js-add-to-cart" data-product-id="${product.id}">
                 Add to Cart
             </button>
         </div>
@@ -54,6 +54,28 @@ products.forEach((product,index) => {
 });
 
 document.querySelector('.js-products-grid').innerHTML = productsHTML;
+document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
+    button.addEventListener('click', () => {
+        //to add the product to the cart it was needed to create a data attribute on the html to be accessible when clicking on a button
+        const productId = button.dataset.productId;
+        let matchingItem;
 
+        cart.forEach((item) =>{
+            if(productId === item.productId){
+                matchingItem = item;
+            }
+        });
+
+        if(matchingItem){
+            matchingItem.quantity +=1;
+        } else{
+            cart.push({
+                productId: productId,
+                quantity: 1
+            });
+        }
+        console.log(cart)
+    });
+});
 
 //The benefits of Generating an HTML is that if we want to have new products, you dont need to be always writing HTML to every product. you just need to add the data to an array.
