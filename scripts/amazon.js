@@ -1,3 +1,8 @@
+//this is a module. Modules = better way to organize our code
+import { cart } from '../data/cart.js';
+import {products} from '../data/products.js';
+//
+
 let productsHTML = '';
 
 products.forEach((product,index) => {
@@ -84,3 +89,9 @@ document.querySelectorAll('.js-add-to-cart').forEach((button)=>{
 
 
 //The benefits of Generating an HTML is that if we want to have new products, you dont need to be always writing HTML to every product. you just need to add the data to an array.
+
+
+//The main idea of JavaScript is:
+// 1) Save the data
+// 2) Generate the HTML
+// 3) Make it interactive
