@@ -16,10 +16,11 @@ describe('Test suite: formatCurrency', () => {
     it('Rounds up to the nearest cent', () =>{
         //expect give us a object and this object has a method called toEqual
         expect(formatCurrency(2000.5)).toEqual('20.01');
+        expect(formatCurrency(2000.4)).toEqual('20.00');
     });
 
-
-
-
-
+    it('Negative value', () =>{
+        //expect give us a object and this object has a method called toEqual
+        expect(formatCurrency(-500)).toEqual('-5.00');
+    });
 });

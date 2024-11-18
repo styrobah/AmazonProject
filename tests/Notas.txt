@@ -4,3 +4,91 @@ beforeEach() = runs code before each test
 afterEach() = runs code after each test
 beforeAll() = runs code before all tests
 afterAll() = runs code after all tests
+
+
+
+//Here I could understand:
+1. Manual and automated tests
+2. Test cases and test suites
+3. Testing framework =  helps us write tests easier
+4. Mock an spy on methods (you can see it on orderSummaryTest) The spyOn allow you to observe and control the behavior of functions during testing.
+5. Test web pages using integration tests (you can see it on orderSummaryTest)
+6. Hooks
+
+
+//exemplo de um teste:
+
+it('Remove a product that is not in the cart', () =>{
+    spyOn(localStorage,'getItem').and.callFake(() => {
+        //localStorage on return strings that's why you use stringify
+        return JSON.stringify([{
+            productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+            quantity: 1,
+            deliveryOptionId: '1'
+        }]);
+    });
+    loadFromStorage();
+    removeFromCart('does-not-exist');
+    expect(cart.length).toEqual(1);
+    expect(cart[0].productId).toEqual('e43638ce-6aa0-4b85-b27f-e1d07eb678c6');
+    expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+    expect(localStorage.setItem).toHaveBeenCalledWith('cart',JSON.stringify([{
+        productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+        quantity: 1,
+        deliveryOptionId: '1'
+    }]));
+});
+
+
+Explicação:
+
+spyOn(localStorage,'getItem').and.callFake(() => {
+    return JSON.stringify([{
+        productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+        quantity: 1,
+        deliveryOptionId: '1'
+    }]);
+});
+
+- spyOn is used to mock or intercept calls to localStorage.getItem.
+- callFake replaces the actual implementation of localStorage.getItem with a mock function.
+- The mocked function returns a stringified array containing a single product object. This simulates the behavior of localStorage returning cart data.
+
+
+loadFromStorage();
+
+- loadFromStorage is a function that reads the cart data from localStorage and loads it into a variable or state, such as a global cart array.
+- The localStorage.getItem mock ensures the cart is initialized with a single product:
+[{
+    productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+    quantity: 1,
+    deliveryOptionId: '1'
+}]
+
+
+removeFromCart('does-not-exist');
+
+- The test calls removeFromCart with a productId ('does-not-exist') that is not in the cart.
+- removeFromCart is expected to check if the product exists in the cart and, since it doesn’t, the cart should remain unchanged.
+
+
+expect(cart.length).toEqual(1);
+
+- The cart still contains 1 item, as the product to be removed wasn’t in the cart.
+
+expect(cart[0].productId).toEqual('e43638ce-6aa0-4b85-b27f-e1d07eb678c6');
+
+- The product already in the cart is unchanged.
+
+expect(localStorage.setItem).toHaveBeenCalledTimes(1);
+
+Even though nothing was removed, the function likely updates localStorage with the unchanged cart.
+
+expect(localStorage.setItem).toHaveBeenCalledWith('cart', JSON.stringify([{
+    productId: 'e43638ce-6aa0-4b85-b27f-e1d07eb678c6',
+    quantity: 1,
+    deliveryOptionId: '1'
+}]));
+
+- localStorage.setItem is expected to store the unchanged cart back in localStorage.
+
