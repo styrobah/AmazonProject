@@ -62,5 +62,4 @@ describe('Test suite: renderOrderSummary', () => {
         expect(cart[0].productId).toEqual(productId2);
     });
 
-    after
 });
