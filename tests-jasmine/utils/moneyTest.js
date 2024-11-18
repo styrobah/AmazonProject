@@ -1,5 +1,6 @@
 import { formatCurrency } from '../../scripts/utils/money.js';
 
+//this ones are unit tests
 //describe() creates a test-suite
 describe('Test suite: formatCurrency', () => {
     //it() creates a test
