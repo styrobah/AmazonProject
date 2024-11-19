@@ -1,3 +1,4 @@
+//array of objects
 export const deliveryOptions = [{
   id: '1',
   deliveryDays: 7,
@@ -22,4 +23,14 @@ export function getDeliveryOption(deliveryOptionId) {
   });
 
   return deliveryOption || deliveryOptions[0];
+}
+
+export function validDeliveryOption(deliveryOptionId) {
+  let validDelivery = false;
+  deliveryOptions.forEach((option) => {
+    if (option.id === deliveryOptionId) {
+      validDelivery = true;
+    }
+  });
+  return validDelivery;
 }

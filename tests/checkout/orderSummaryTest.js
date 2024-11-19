@@ -55,7 +55,6 @@ describe('Test suite: renderOrderSummary', () => {
         ).toContain('Quantity: 1');
     });
 
-
     it('Removes a product', () => {
 
         document.querySelector(`.js-delete-link-${productId1}`).click();
@@ -68,4 +67,13 @@ describe('Test suite: renderOrderSummary', () => {
         expect(cart[0].productId).toEqual(productId2);
     });
 
+    it('Update the delivery option',() => {
+        document.querySelector(`.js-delivery-option-${productId1}-3`).click();
+        expect(document.querySelector(`.js-delivery-option-input-${productId1}-3`).checked).toEqual(true);
+        expect(cart.length).toEqual(2);
+        expect(cart[0].productId).toEqual('e43638ce-6aa0-4b85-b27f-e1d07eb678c6');
+        expect(cart[0].deliveryOptionId).toEqual('3');
+        expect(document.querySelector('.js-payment-shipping-price').innerText).toEqual('$14.98');
+        expect(document.querySelector('.js-payment-order-total').innerText).toEqual('$63.50');
+    });
 });
