@@ -1,3 +1,5 @@
+import { formatCurrency } from '../scripts/utils/money.js';
+
 export function getProduct(productId) {
   let matchingProduct;
 
@@ -10,6 +12,39 @@ export function getProduct(productId) {
   return matchingProduct;
 }
 
+//the purpose of this class is to generate products
+class Product{
+  id;
+  image;
+  name;
+  rating;
+  priceCents;
+
+  constructor(productDetails){
+    this.id = productDetails.id;
+    this.image = productDetails.image;
+    this.name = productDetails.name;
+    this.rating = productDetails.rating;
+    this.priceCents = productDetails.priceCents;
+  }
+
+  getStarsUrl(){
+    return `images/ratings/rating-${this.rating.stars * 10}.png`;
+  }
+
+  getPrice(){
+    return `$${formatCurrency(this.priceCents)}`;
+  }
+
+}
+
+//instead of creating the product this way, we use the constructor because it will setup all the products we want.
+//instead of putting this product1.name = 'Coisas'. We let constructor do it
+
+
+
+//map loops through an array
+//what we are doing here is converting all of our objects into the the product class
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -669,4 +704,7 @@ export const products = [
       "mens"
     ]
   }
-];
+].map( (productDetails) => {
+  //when we use map we are putting the result in a new array
+  return new Product(productDetails);
+});
