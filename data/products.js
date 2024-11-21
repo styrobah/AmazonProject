@@ -35,8 +35,32 @@ class Product{
   getPrice(){
     return `$${formatCurrency(this.priceCents)}`;
   }
-
+  extraInfoHTML(){
+    return '';
+  }
 }
+
+//in this case, what we are saying is that the class clothing is getting all the properties and methods of the class Product. THIS IS INHERITANCE
+class Clothing extends Product{
+  sizeChartLink;
+
+
+  //by default if we dont put the constructor it will run the parent constructor
+  
+  constructor(productDetails){
+    //super calls the constructor of the parent class in this case Product class
+    //we do this because this constructor needs everything that's inside of the parent constructor and instead of writing all the text we just call it super();
+    super(productDetails);
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+
+  extraInfoHTML(){
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">Size Chart</a>
+    `;
+  }
+}
+
 
 //instead of creating the product this way, we use the constructor because it will setup all the products we want.
 //instead of putting this product1.name = 'Coisas'. We let constructor do it
@@ -706,5 +730,8 @@ export const products = [
   }
 ].map( (productDetails) => {
   //when we use map we are putting the result in a new array
+  if(productDetails.type === 'clothing'){
+    return new Clothing(productDetails)
+  }
   return new Product(productDetails);
 });
