@@ -98,7 +98,7 @@ class Cart {
         matchingItem.deliveryOptionId = deliveryOptionId;
       
         this.saveToStorage();
-      }
+    }
 }
 
 //this is an instance from a class
