@@ -9,21 +9,23 @@ import { validDeliveryOption } from "./deliveryOptions.js";
 class Cart {
     //this is how you add a property to a class, now every object we generate will have this property
     cartItems;
-    localStorageKey;
+
+    //I put the hash in the localStorageKey to make it private
+    #localStorageKey;
     //it's the same as
     //cartItems = undefined;
     //localStorageKey = undefined;
 
 
     constructor(localStorageKey){
-        this.localStorageKey = localStorageKey;
-        this.loadFromStorage();
+        this.#localStorageKey = localStorageKey;
+        this.#loadFromStorage();
     }
 
 
-    loadFromStorage() {
+    #loadFromStorage() {
         //this give is the outer object, in this case is cart but I could be another one. Instead of having cart.cartItems
-        this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+        this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
       
         if (!this.cartItems) {
           this.cartItems = [{
@@ -102,7 +104,6 @@ class Cart {
 //this is an instance from a class
 const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
-
 
 
 console.log(cart);
