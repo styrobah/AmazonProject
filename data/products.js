@@ -13,7 +13,7 @@ export function getProduct(productId) {
 }
 
 //the purpose of this class is to generate products
-class Product{
+export class Product{
   id;
   image;
   name;
@@ -41,7 +41,7 @@ class Product{
 }
 
 //in this case, what we are saying is that the class clothing is getting all the properties and methods of the class Product. THIS IS INHERITANCE
-class Clothing extends Product{
+export class Clothing extends Product{
   sizeChartLink;
 
 
@@ -61,7 +61,7 @@ class Clothing extends Product{
   }
 }
 
-class Appliance extends Product{
+export class Appliance extends Product{
   instructionsLink;
   warrantyLink;
 

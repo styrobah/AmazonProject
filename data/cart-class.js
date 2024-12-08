@@ -102,7 +102,7 @@ class Cart {
 }
 
 //this is an instance from a class
-const cart = new Cart('cart-oop');
+export const cart = new Cart('cart-oop');
 const businessCart = new Cart('cart-business');
 
 
